@@ -28,7 +28,7 @@ const Chart = ({ currentPrice, logoUrl, name, symbol, priceChangePercentage7d, s
       return formattedValue;
     }
 
-    const formattedValue =`$${parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`
+    const formattedValue =`$${parseFloat(value).toFixed(6).replace(/\d(?=(\d{6})+\.)/g, '$&,')}`
     return formattedValue;
   };
 
