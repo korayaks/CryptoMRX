@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Image, Dimensions, ActivityIndicator } from 'react-native'
-import {ChartDot, ChartPath, ChartPathProvider, ChartYLabel} from '@rainbow-me/animated-charts';
+import { ChartDot, ChartPath, ChartPathProvider, ChartYLabel } from '@rainbow-me/animated-charts';
 import { useSharedValue } from 'react-native-reanimated';
 
 const { width: SIZE } = Dimensions.get('window');
@@ -28,7 +28,7 @@ const Chart = ({ currentPrice, logoUrl, name, symbol, priceChangePercentage7d, s
       return formattedValue;
     }
 
-    const formattedValue =`$${parseFloat(value).toFixed(6).replace(/\d(?=(\d{6})+\.)/g, '$&,')}`
+    const formattedValue = `$${parseFloat(value).toFixed(6).replace(/\d(?=(\d{6})+\.)/g, '$&,')}`
     return formattedValue;
   };
 
@@ -54,22 +54,22 @@ const Chart = ({ currentPrice, logoUrl, name, symbol, priceChangePercentage7d, s
               format={formatUSD}
               style={styles.boldTitle}
             />
-            <Text style={[styles.title, {color: priceChangeColor}]}>{priceChangePercentage7d.toFixed(2)}%</Text>
+            <Text style={[styles.title, { color: priceChangeColor }]}>{priceChangePercentage7d.toFixed(2)}%</Text>
           </View>
         </View>
 
-        { chartReady ?
-        (<View style={styles.chartLineWrapper}>
-          <ChartPath height={SIZE / 2} stroke="black" width={SIZE} />
-          <ChartDot style={{ backgroundColor: 'black' }} />
+        {chartReady ?
+          (<View style={styles.chartLineWrapper}>
+            <ChartPath height={SIZE / 2} stroke="black" width={SIZE} />
+            <ChartDot style={{ backgroundColor: 'black' }} />
           </View>)
 
           :
 
           null
-        
+
         }
-        
+
       </View>
     </ChartPathProvider>
   )

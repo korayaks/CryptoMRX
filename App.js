@@ -1,5 +1,5 @@
-import React, {useRef, useMemo, useState, useEffect} from 'react';
-import { FlatList, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
+import { FlatList, StyleSheet, Text, View, SafeAreaView, RefreshControl } from 'react-native';
 import ListItem from './components/ListItem';
 import Chart from './components/Chart';
 import {
@@ -11,8 +11,8 @@ import { getMarketData } from './services/cryptoService';
 const ListHeader = () => (
   <>
     <View style={styles.titleWrapper}>
-        <Text style={styles.largeTitle}>Markets</Text>
-      </View>
+      <Text style={styles.largeTitle}>Markets</Text>
+    </View>
     <View style={styles.divider} />
   </>
 )
@@ -39,24 +39,43 @@ export default function App() {
     bottomSheetModalRef.current?.present();
   }
 
+  const [Refreshing, setRefreshing] = useState(false)
+  const onRefresh = () => {
+    setRefreshing(true)
+    setTimeout(() => {
+      const fetchMarketData = async () => {
+        const marketData = await getMarketData();
+        setData(marketData);
+        setRefreshing(false)
+      }
+      fetchMarketData();
+    }, 1300)//50 calls/minute 1.3secx50 = 65 sec which means user cant go out the bounds.
+  }
+
   return (
     <BottomSheetModalProvider>
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        keyExtractor={(item) => item.id}
-        data={data}
-        renderItem={({ item }) => (
-          <ListItem
-            name={item.name}
-            symbol={item.symbol}
-            currentPrice={item.current_price}
-            priceChangePercentage7d={item.price_change_percentage_7d_in_currency}
-            logoUrl={item.image}
-            onPress={() => openModal(item)}
-          />
-        )}
-        ListHeaderComponent={<ListHeader />}
-      />
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={Refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+          keyExtractor={(item) => item.id}
+          data={data}
+          renderItem={({ item }) => (
+            <ListItem
+              name={item.name}
+              symbol={item.symbol}
+              currentPrice={item.current_price}
+              priceChangePercentage7d={item.price_change_percentage_7d_in_currency}
+              logoUrl={item.image}
+              onPress={() => openModal(item)}
+            />
+          )}
+          ListHeaderComponent={<ListHeader />}
+        />
       </SafeAreaView>
 
       <BottomSheetModal
@@ -65,7 +84,7 @@ export default function App() {
         snapPoints={snapPoints}
         style={styles.bottomSheet}
       >
-        { selectedCoinData ? (
+        {selectedCoinData ? (
           <Chart
             currentPrice={selectedCoinData.current_price}
             logoUrl={selectedCoinData.image}
@@ -76,7 +95,7 @@ export default function App() {
           />
         ) : null}
       </BottomSheetModal>
-      </BottomSheetModalProvider>
+    </BottomSheetModalProvider>
   );
 }
 
