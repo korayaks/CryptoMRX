@@ -7,6 +7,10 @@ import {
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 import { getMarketData } from './services/cryptoService';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const ListHeader = () => (
   <>
@@ -18,84 +22,14 @@ const ListHeader = () => (
 )
 
 export default function App() {
-  const [data, setData] = useState([]);
-  const [selectedCoinData, setSelectedCoinData] = useState(null);
-
-  useEffect(() => {
-    const fetchMarketData = async () => {
-      const marketData = await getMarketData();
-      setData(marketData);
-    }
-
-    fetchMarketData();
-  }, [])
-
-  const bottomSheetModalRef = useRef(null);
-
-  const snapPoints = useMemo(() => ['50%'], []);
-
-  const openModal = (item) => {
-    setSelectedCoinData(item);
-    bottomSheetModalRef.current?.present();
-  }
-
-  const [Refreshing, setRefreshing] = useState(false)
-  const onRefresh = () => {
-    setRefreshing(true)
-    setTimeout(() => {
-      const fetchMarketData = async () => {
-        const marketData = await getMarketData();
-        setData(marketData);
-        setRefreshing(false)
-      }
-      fetchMarketData();
-    }, 1300)//50 calls/minute 1.3secx50 = 65 sec which means user cant go out the bounds.
-  }
-
+const Stack = createNativeStackNavigator();
   return (
-    <BottomSheetModalProvider>
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={Refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-          keyExtractor={(item) => item.id}
-          data={data}
-          renderItem={({ item }) => (
-            <ListItem
-              name={item.name}
-              symbol={item.symbol}
-              currentPrice={item.current_price}
-              priceChangePercentage7d={item.price_change_percentage_7d_in_currency}
-              logoUrl={item.image}
-              onPress={() => openModal(item)}
-            />
-          )}
-          ListHeaderComponent={<ListHeader />}
-        />
-      </SafeAreaView>
-
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        index={0}
-        snapPoints={snapPoints}
-        style={styles.bottomSheet}
-      >
-        {selectedCoinData ? (
-          <Chart
-            currentPrice={selectedCoinData.current_price}
-            logoUrl={selectedCoinData.image}
-            name={selectedCoinData.name}
-            symbol={selectedCoinData.symbol}
-            priceChangePercentage7d={selectedCoinData.price_change_percentage_7d_in_currency}
-            sparkline={selectedCoinData?.sparkline_in_7d.price}
-          />
-        ) : null}
-      </BottomSheetModal>
-    </BottomSheetModalProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
