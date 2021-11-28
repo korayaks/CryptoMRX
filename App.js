@@ -1,12 +1,5 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View, SafeAreaView, RefreshControl } from 'react-native';
-import ListItem from './components/ListItem';
-import Chart from './components/Chart';
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
-import { getMarketData } from './services/cryptoService';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,7 +18,10 @@ export default function App() {
 const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+       screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>

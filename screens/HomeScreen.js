@@ -27,10 +27,9 @@ const HomeScreen = () => {
     <>
       <View style={styles.titleWrapper}>
         <Text style={styles.largeTitle}>Markets</Text>
-       </View>
+      </View>
      
       <View style={styles.containerLogout}>
-        <Text>Email: {auth.currentUser?.email}</Text>
         <TouchableOpacity
             onPress={handleSignOut}
             style={styles.button}
@@ -131,11 +130,11 @@ export default HomeScreen
 const styles = StyleSheet.create({
    button: {
     backgroundColor: '#0782F9',
-    width: '20%',
+    width: '25%',
     padding: 5,
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 5,
+      
   },
   buttonText: {
     color: 'white',
@@ -151,13 +150,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     paddingHorizontal: 16,
-    marginTop:-55
+    paddingLeft:5,
+    marginTop:-30,
   },
   titleWrapper: {
     marginTop: 20,
     paddingHorizontal: 16,
   },
   largeTitle: {
+    marginTop:5,
     fontSize: 24,
     fontWeight: "bold",
   },
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     height: StyleSheet.hairlineWidth,
     backgroundColor: '#A9ABB1',
     marginHorizontal: 16,
-    marginTop: 16,
+    marginTop: 8,
   },
   bottomSheet: {
     shadowColor: "#000",
