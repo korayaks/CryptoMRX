@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase'
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, View, SafeAreaView, RefreshControl,TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, Text, View, SafeAreaView, RefreshControl,TouchableOpacity, Image } from 'react-native';
 import ListItem from '../components/ListItem';
 import Chart from '../components/Chart';
 import {
@@ -25,7 +25,9 @@ const HomeScreen = () => {
   //
   const ListHeader = () => (
     <>
+      
       <View style={styles.titleWrapper}>
+        <Image source={require('../assets/logo.png')} style={styles.image}/>
         <Text style={styles.largeTitle}>Markets</Text>
       </View>
      
@@ -84,6 +86,7 @@ const HomeScreen = () => {
           <RefreshControl
             refreshing={Refreshing}
             onRefresh={onRefresh}
+            tintColor="red"
           />
         }
         keyExtractor={(item) => item.id}
@@ -129,10 +132,10 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
    button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: 'red',
     width: '25%',
     padding: 5,
-    borderRadius: 10,
+    borderRadius: 0,
     alignItems: 'center',
       
   },
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#181818',
   },
   containerLogout: {
     flex: 1,
@@ -156,11 +159,13 @@ const styles = StyleSheet.create({
   titleWrapper: {
     marginTop: 20,
     paddingHorizontal: 16,
+    flexDirection: 'row'
   },
   largeTitle: {
     marginTop:5,
     fontSize: 24,
     fontWeight: "bold",
+    color: 'white'
   },
   divider: {
     height: StyleSheet.hairlineWidth,
@@ -169,7 +174,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   bottomSheet: {
-    shadowColor: "#000",
+    shadowColor: "white",
     shadowOffset: {
       width: 0,
       height: -4,
@@ -178,4 +183,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  image:{
+    width:25,
+    height:25,
+    marginTop:5,
+    marginRight: 10
+  }
 })

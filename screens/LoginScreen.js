@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import { auth } from '../firebase'
 
 const LoginScreen = () => {
@@ -23,8 +23,7 @@ const LoginScreen = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Registered with:', user.email);
+        const user = userCredentials.user;     
       })
       .catch(error => alert(error.message))
   }
@@ -33,8 +32,7 @@ const LoginScreen = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
+        const user = userCredentials.user;       
       })
       .catch(error => alert(error.message))
   }
@@ -44,6 +42,7 @@ const LoginScreen = () => {
       style={styles.container}
       behavior="padding"
     >
+      <Image source={require('../assets/logo.png')} style={styles.image}/>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -85,17 +84,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#181818'
   },
   inputContainer: {
     width: '80%',
-    marginTop: 90
+    marginTop: 30
   },
   input: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
     paddingVertical: 10,
-    borderRadius: 10,
     marginTop: 5,
+    fontSize: 16,
   },
   buttonContainer: {
     width: '60%',
@@ -104,26 +104,30 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#00ff8c',
     width: '100%',
     padding: 15,
-    borderRadius: 10,
     alignItems: 'center',
   },
   buttonOutline: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     marginTop: 5,
-    borderColor: '#0782F9',
-    borderWidth: 2,
+    borderColor: '#00ff8c',
+    borderWidth: 1,
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontWeight: '700',
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#00ff8c',
     fontWeight: '700',
     fontSize: 16,
   },
+  image:{
+    width:250,
+    height: 250,
+    marginTop: -50
+  }
 })
