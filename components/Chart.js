@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: '#A9ABB1',
+    color: 'black',
   },
   lowerTitles: {
     flexDirection: 'row',
@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
   },
   boldTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
+    color: 'black'
   },
   title: {
     fontSize: 18,

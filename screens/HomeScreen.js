@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     marginTop:-30,
   },
   titleWrapper: {
-    marginTop: 20,
+    marginTop: 25,
     paddingHorizontal: 16,
     flexDirection: 'row'
   },
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: '#A9ABB1',
+    backgroundColor: 'white',
     marginHorizontal: 16,
     marginTop: 8,
   },
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   image:{
     width:25,
     height:25,
-    marginTop:5,
+    marginTop:8,
     marginRight: 10
   }
 })

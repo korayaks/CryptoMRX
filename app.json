@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "cryptoMRX",
+    "name": "CryptoMRX",
     "slug": "cryptoMRX",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon1024x1024.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splashmrx.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#181818"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,13 +20,14 @@
       "supportsTablet": true
     },
     "android": {
+      "package":"com.korayaks.cryptomrx",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/icon1024x1024.png",
+        "backgroundColor": "#181818"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon1024x1024.png"
     }
   }
 }
