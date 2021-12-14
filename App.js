@@ -5,15 +5,6 @@ import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const ListHeader = () => (
-  <>
-    <View style={styles.titleWrapper}>
-      <Text style={styles.largeTitle}>Markets</Text>
-    </View>
-    <View style={styles.divider} />
-  </>
-)
-
 export default function App() {
 const Stack = createNativeStackNavigator();
   return (

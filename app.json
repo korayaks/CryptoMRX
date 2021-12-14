@@ -21,13 +21,14 @@
     },
     "android": {
       "package":"com.korayaks.cryptomrx",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon1024x1024.png",
         "backgroundColor": "#181818"
       }
     },
     "web": {
-      "favicon": "./assets/icon1024x1024.png"
+      "favicon": "./assets/faviconmrx.png"
     }
   }
 }
