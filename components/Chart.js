@@ -10,8 +10,8 @@ const Chart = ({ currentPrice, logoUrl, name, symbol, priceChangePercentage7d, s
   const latestCurrentPrice = useSharedValue(currentPrice);
   const [chartReady, setChartReady] = useState(false);
 
-  const priceChangeColor = priceChangePercentage7d > 0 ? '#34C759' : '#FF3B30';
-
+  const priceChangeColor = priceChangePercentage7d > 0 ? '#34C759' : '#FF3B30'; // İlgili kripto para 7 günlük periyotda değer kaybettiyse yani -% li ise yazının kırmızı 
+                                                                                //+% li ise yazının yeşil olmasını sağladık.
   useEffect(() => {
     latestCurrentPrice.value = currentPrice;
 
@@ -21,14 +21,14 @@ const Chart = ({ currentPrice, logoUrl, name, symbol, priceChangePercentage7d, s
 
   }, [currentPrice])
 
-  const formatUSD = value => {
+  const formatUSD = value => { //Kripto paraların dolar fiyatlarının font ayarları
     'worklet';
     if (value === '') {
-      const formattedValue = `$${latestCurrentPrice.value.toLocaleString('en-US', { currency: 'USD' })}`
+      const formattedValue = `$${latestCurrentPrice.value.toLocaleString('en-US', { currency: 'USD' })}`// Dolar birimini kullanacağımı belirledim. Başına $ işareti koydum ve yazı biçimini dolar yaptım.
       return formattedValue;
     }
 
-    const formattedValue = `$${parseFloat(value).toFixed(6).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`
+    const formattedValue = `$${parseFloat(value).toFixed(6).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`// . dan sonra kaç basamak olacağını belirledim
     return formattedValue;
   };
 

@@ -13,16 +13,15 @@ import { getMarketData } from '../services/cryptoService';
 const HomeScreen = () => {
   const navigation = useNavigation()
 
-  const handleSignOut = () => {
+  const handleSignOut = () => {//Çıkış yap butonuna tıklandığında çalışır.
     auth
       .signOut()
       .then(() => {
-        navigation.replace("Login")
+        navigation.replace("Login")//Kullanıcıyı Login sayfasına yani giriş ve kayıt işlemlerinin yapıldığı sayfaya yönlendirir.
       })
-      .catch(error => alert(error.message))
+      .catch(error => alert(error.message)) //Herhangi bir hata ile karşılaşıldığında kullanıcı bilgilendirilir.
   }
 
-  //
   const ListHeader = () => (
     <>
       
@@ -47,9 +46,9 @@ const HomeScreen = () => {
   const [selectedCoinData, setSelectedCoinData] = useState(null);
 
   useEffect(() => {
-    const fetchMarketData = async () => {
+    const fetchMarketData = async () => { // web api üzerinden tüm kripto paraların anlık durumunu çekiyoruz.
       const marketData = await getMarketData();
-      setData(marketData);
+      setData(marketData);//yeni çekilen verileri, data değişkenine atıyorum.
     }
 
     fetchMarketData();
@@ -64,17 +63,17 @@ const HomeScreen = () => {
     bottomSheetModalRef.current?.present();
   }
 
-  const [Refreshing, setRefreshing] = useState(false)
+  const [Refreshing, setRefreshing] = useState(false)//Ekranı en yukarı kaydırıldığında sayfa yenilenir. Yenilenirken web api üzerinden anlık kripto para verileri çekilir.
   const onRefresh = () => {
-    setRefreshing(true)
+    setRefreshing(true)//yenileme çubuğunun görünümünü aç.
     setTimeout(() => {
-      const fetchMarketData = async () => {
+      const fetchMarketData = async () => {// web api üzerinden tüm kripto paraların anlık durumunu çekiyoruz.
         const marketData = await getMarketData();
-        setData(marketData);
-        setRefreshing(false)
+        setData(marketData);//yeni çekilen verileri, data değişkenine atıyorum.
+        setRefreshing(false)//yenileme çubuğunun görünümünü kapat.
       }
       fetchMarketData();
-    }, 1300)//50 calls/minute 1.3secx50 = 65 sec which means user cant go out the bounds.
+    }, 1300)//50 calls/minute 1.3secx50 = 65 sec. Kullanıcıyı 1.3 saniye bekletip dakikada 50 istek sınırının aşılmaması sağlandı.
   }
   //
   return (

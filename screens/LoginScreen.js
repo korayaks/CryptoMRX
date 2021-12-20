@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import { auth } from '../firebase'
 
-const LoginScreen = () => {
+const LoginScreen = () => {// Firebase kütüphanesi kayıt ve giriş işlemlerinde oldukça yardımcı oluyor. 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,7 +11,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
+      if (user) {//Kullıcının rolü user olduğunda Home sayfasına yani kripto paraların olduğu sayfaya yönlendirilir.
         navigation.replace("Home")
       }
     })
@@ -19,22 +19,22 @@ const LoginScreen = () => {
     return unsubscribe
   }, [])
 
-  const handleSignUp = () => {
+  const handleSignUp = () => {//Kayıt işlemi
     auth
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(email, password)//Girilen email ve şifre ile kayıt işlemi yapılır
       .then(userCredentials => {
-        const user = userCredentials.user;     
+        const user = userCredentials.user;     //kullanıcıya user rolü verilir
       })
-      .catch(error => alert(error.message))
+      .catch(error => alert(error.message)) //herhangi bir hata varsa kullanıcı bilgilendirilir.
   }
 
-  const handleLogin = () => {
+  const handleLogin = () => {//Giriş işlemi
     auth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)//Girilen email ve şifre ile giriş işlemi yapılır
       .then(userCredentials => {
-        const user = userCredentials.user;       
+        const user = userCredentials.user;       //kullanıcıya user rolü verilir
       })
-      .catch(error => alert(error.message))
+      .catch(error => alert(error.message))     //herhangi bir hata varsa kullanıcı bilgilendirilir.
   }
 
   return (
